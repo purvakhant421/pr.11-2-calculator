@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- calculator -->
+    <div class="wrapper">
+        <div class="letcontainer">
+            <form action="">
+                <h1><mark>calculator javascript..</mark></h1>
+                <div class="message">
+                    <input type="text" class="form-control " id="inval">
+                    <marquee behavior="scroll" direction="" id="mark">welcom to calculator</marquee>
+                </div>
+                <input type="text" class="form-control " id="show" readonly>
+            </form>
+            <div class="row">
+                <button class="col btn color-1 rounded-circle " id="ac_btn" onclick="clearinput()">AC</button>
+                <button class="col btn color-1 rounded-circle " id="back_btn"
+                    onclick="inval.value =inval.value.toString().slice(0,-1)"><i
+                        class="fa-solid fa-delete-left"></i></button>
+                <button class="col btn color-1 rounded-circle " id="modulo_btn" onclick="inval.value +='%'">%</button>
+                <button class="col btn color-2 rounded-circle " id="divide_btn" onclick="inval.value +='/'"><i
+                        class="fa-solid fa-divide"></i></button>
+            </div>
+            <div class="row">
+                <button class="col btn color-3 rounded-circle " id="seven_btn" onclick="inval.value +='7'">7</button>
+                <button class="col btn color-3 rounded-circle " id="eight_btn" onclick="inval.value +='8'">8</button>
+                <button class="col btn color-3 rounded-circle " id="nine_btn" onclick="inval.value +='9'">9</button>
+                <button class="col btn color-2 rounded-circle " id="multi_btn" onclick="inval.value +='*'"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="row">
+                <button class="col btn color-3 rounded-circle " id="four_btn" onclick="inval.value +='4'">4</button>
+                <button class="col btn color-3 rounded-circle " id="five_btn" onclick="inval.value +='5'">5</button>
+                <button class="col btn color-3 rounded-circle " id="six_btn" onclick="inval.value +='6'">6</button>
+                <button class="col btn color-2 rounded-circle " id="minus_btn" onclick="inval.value +='-'"><i
+                        class="fa-solid fa-minus"></i></i></button>
+            </div>
+            <div class="row">
+                <button class="col btn color-3 rounded-circle " id="one_btn" onclick="inval.value +='1'">1</button>
+                <button class="col btn color-3 rounded-circle " id="two_btn" onclick="inval.value +='2'">2</button>
+                <button class="col btn color-3 rounded-circle " id="three_btn" onclick="inval.value +='3'">3</button>
+                <button class="col btn color-2 rounded-circle " id="plus_btn" onclick="inval.value +='+'"><i
+                        class="fa-solid fa-plus"></i></button>
+            </div>
+            <div class="row">
+                <button class="col btn color-3 rounded-circle " id="zeroo_btn" onclick="inval.value +='00'">00</button>
+                <button class="col btn color-3 rounded-circle " id="zero_btn" onclick="inval.value +='0'">0</button>
+                <button class="col btn color-3 rounded-circle " id="dot_btn" onclick="inval.value +='.'">.</button>
+                <button class="col btn color-2 rounded-circle " id="equal_btn" onclick="inval.value =eval(inval.value)"><i
+                        class="fa-solid fa-equals"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script>
+        let inval = document.getElementById("inval")
+        let show = document.getElementById("show")
+        let marqueetag = document.getElementById("mark")
+
+        let allbtn = document.getElementsByTagName("button")
+
+        for (let btn of allbtn) {    // remove marqueetag display
+            btn.addEventListener("mousedown", multifun)
+        }
+        let equal_btn = document.getElementById("equal_btn")
+
+        equal_btn.addEventListener("mouseup", equalmultifun)
+
+        inval.addEventListener("keyup", onenter)
+        inval.addEventListener("keypress", downenter)
+        inval.addEventListener("focus", focusmark) //focus event 
+
+        function multifun() {
+            marqueetag.style.display = "none";
+        }
+        function equalmultifun(event) {
+            marqueetag.style.display = "none";
+            show.value = inval.value
+            inval.value = eval(inval.value)
+        }
+        function onenter(event) {    // executed answer 
+            if (event.keyCode === 13) {
+                inval.value = eval(inval.value)
+            }
+        }
+        function downenter(event) {  //enter value and assign value to show value and executed answer
+            if (event.keyCode === 13) {
+                show.value = inval.value
+                inval.value = eval(inval.value)
+            }
+        }
+        function focusmark() {  
+            marqueetag.style.display = "none"
+        }
+        function clearinput() {
+            inval.value = ""
+            show.value = ""
+        }
+    </script>
+</body>
+
+</html>
